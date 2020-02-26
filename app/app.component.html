@@ -1,0 +1,121 @@
+<h3 class="first">Tracking Links & Campaigns table</h3>
+<p-table #table [value]="tl" dataKey="casino" (onFilter)="onFilter($event)" (sortFunction)="customSort($event)"
+	[customSort]="true">
+	<ng-template pTemplate="caption">
+		<div card-title fxLayout="row" fxLayoutAlign="space-between center">
+			Brand
+			<div>
+				<p-multiSelect [options]="casinos" defaultLabel="Casino" appendTo="body"
+					(onChange)="table.filter($event.value, 'casino', 'in')">
+				</p-multiSelect>
+			</div>
+		</div>
+	</ng-template>
+	<ng-template pTemplate="header">
+		<tr>
+			<th [pSortableColumn]="'campaign'"><label>Campaign</label>
+				<p-sortIcon [field]="'campaign'"></p-sortIcon>
+			</th>
+			<th [pSortableColumn]="'product'"><label>Product</label>
+				<p-sortIcon [field]="'product'"></p-sortIcon>
+			</th>
+			<th [pSortableColumn]="'language'"><label>Language</label>
+				<p-sortIcon [field]="'language'"></p-sortIcon>
+			</th>
+			<th [pSortableColumn]="'ip'"><label>Ip</label>
+				<p-sortIcon [field]="'ip'"></p-sortIcon>
+			</th>
+			<th [pSortableColumn]="'website'"><label>Website</label>
+				<p-sortIcon [field]="'website'"></p-sortIcon>
+			</th>
+			<th [pSortableColumn]="'trackingLink'"><label>Tracking Link</label>
+				<p-sortIcon [field]="'trackingLink'"></p-sortIcon>
+			</th>
+		</tr>
+		<tr>
+			<th>
+				<input pInputText type="text" (input)="table.filter($event.target.value, 'campaign', 'contains');" class="filtro">
+			</th>
+			<th>
+				<input pInputText type="text" (input)="table.filter($event.target.value, 'product', 'contains');" class="filtro">
+			</th>
+			<th>
+				<input pInputText type="text" (input)="table.filter($event.target.value, 'language', 'contains');" class="filtro">
+			</th>
+			<th>
+				<input pInputText type="text" (input)="table.filter($event.target.value, 'ip', 'contains');" class="filtro">
+			</th>
+			<th>
+				<input pInputText type="text" (input)="table.filter($event.target.value, 'website', 'contains');" class="filtro">
+			</th>
+			<th>
+				<input pInputText type="text" (input)="table.filter($event.target.value, 'trackingLink', 'contains');" class="filtro">
+			</th>
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-expanded="expanded" let-columns="columns">
+		<tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.casino].index === rowIndex">
+			<td colspan="6">
+				<a href="#" [pRowToggler]="rowData" class="expander-row">
+					<i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+					<span>{{rowData.casino}}</span>
+				</a>
+			</td>
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="rowexpansion" let-rowData let-rowIndex="rowIndex">
+		<tr>
+			<td>{{rowData.campaign}}</td>
+			<td>{{rowData.product}}</td>
+			<td>{{rowData.language}}</td>
+			<td>{{rowData.ip}}</td>
+			<td>{{rowData.website}}</td>
+			<td>{{rowData.trackingLink}}</td>
+		</tr>
+	</ng-template>
+</p-table>
+
+<hr>
+<h3 class="first">Tracking Links & Campaigns </h3>
+<p-treeTable #tt [value]="topNodes">
+  <ng-template pTemplate="caption">
+		<div card-title fxLayout="row" fxLayoutAlign="space-between center">
+			Brand
+			<div>
+				<p-multiSelect [options]="casinos" defaultLabel="Casino" appendTo="body"
+				>
+				</p-multiSelect>
+			</div>
+		</div>
+	</ng-template>
+	<ng-template pTemplate="header">
+		<tr>
+			<th rowspan="2">Setup</th>
+			<th colspan="2">Tracking links and campaign</th>
+		</tr>
+		<tr>
+			<!-- <th>product</th> -->
+			<!-- <th>country</th>
+			<th>lang</th>-->
+			<!-- <th>site</th>  -->
+			<th>Link</th>
+			<th>Campaign name</th>
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+		<tr>
+			<td>
+				<p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+				{{rowData.label}}
+			</td>
+			<!-- <td>{{rowData.product}}</td> -->
+			<!-- <td>{{rowData.ip}}</td>
+			<td>{{rowData.language}}</td> -->
+			<!-- <td>{{rowData.website}}</td> -->
+			<td>{{rowData.trackingLink}}</td>
+			<td>{{rowData.campaign}}</td>
+		</tr>
+	</ng-template>
+</p-treeTable>
+<hr>
+
