@@ -1,7 +1,8 @@
 import { Component, ViewChild } from "@angular/core";
 import { Table } from "primeng/components/table/table";
 import { SortEvent } from "primeng/components/common/api";
-import {TreeNode} from 'primeng/api';
+import { TreeNode, SelectItem } from "primeng/api";
+import {MenuItem} from 'primeng/api';
 
 @Component({
   selector: "my-app",
@@ -15,6 +16,10 @@ export class AppComponent {
   flatsCasinos: any[];
   cols: any[];
 
+  languages: MenuItem[];
+  selectedType: any = "casino";
+  selectedBrand: any = "casino.com";
+
   expandedRows: number[];
 
   rowGroupMetadata = {};
@@ -22,9 +27,31 @@ export class AppComponent {
   @ViewChild("table")
   table: Table;
 
-  constructor() {}
+  types: SelectItem[];
+
+  constructor() {
+    this.types = [
+      { label: "Casino", value: "casino" },
+      { label: "Sport", value: "sport" },
+      { label: "Poker", value: "poker" },
+      { label: "Other", value: "other" }
+    ];
+  }
 
   ngOnInit() {
+    this.languages = [
+      {
+        label: "Languages",
+        items: [
+          { label: "English" },
+          { label: "French" },
+          { label: "German" },
+          { label: "Spanish" },
+          { label: "Finnish" },
+          { label: "Norwegian" }
+        ]
+      }
+    ];
     this.tl = [
       {
         campaign: "ZZ-en-Default",
@@ -153,9 +180,13 @@ export class AppComponent {
       v => ({ label: v, value: v })
     );
 
-    this.topNodes =  this.tl
+    this.topNodes = this.tl
       .filter(cas => cas.ip === "all" && cas.website === "Default")
-      .map(v => ({ data: { ...v, label: v.casino }, children: [], label: v.casino }));
+      .map(v => ({
+        data: { ...v, label: v.casino },
+        children: [],
+        label: v.casino
+      }));
 
     this.topNodes.forEach(node => {
       node.children = this.tl
@@ -165,15 +196,21 @@ export class AppComponent {
             cas.ip !== "all" &&
             cas.website === "Default"
         )
-        .map(v => ({ data: { ...v  , label: v.ip }, children: [] , label: v.ip  }));
+        .map(v => ({ data: { ...v, label: v.ip }, children: [], label: v.ip }));
 
       node.children.forEach(siteNode => {
-        siteNode.children = this.tl.filter(
-          cas =>
-            cas.casino === node.data.casino &&
-            cas.ip !== "all" &&
-            cas.website !== "Default"
-        ).map(v => ({ data: { ...v, label: v.website }, children: [] , label: v.website  }));
+        siteNode.children = this.tl
+          .filter(
+            cas =>
+              cas.casino === node.data.casino &&
+              cas.ip !== "all" &&
+              cas.website !== "Default"
+          )
+          .map(v => ({
+            data: { ...v, label: v.website },
+            children: [],
+            label: v.website
+          }));
       });
     });
 
