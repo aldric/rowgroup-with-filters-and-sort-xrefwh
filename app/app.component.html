@@ -1,149 +1,77 @@
-<!-- <h3 class="first">Tracking Links & Campaigns table</h3>
-<p-table #table [value]="tl" dataKey="casino" (onFilter)="onFilter($event)" (sortFunction)="customSort($event)"
-	[customSort]="true">
-	<ng-template pTemplate="caption">
-		<div card-title fxLayout="row" fxLayoutAlign="space-between center">
-			Brand
-			<div>
-				<p-multiSelect [options]="casinos" defaultLabel="Casino" appendTo="body"
-					(onChange)="table.filter($event.value, 'casino', 'in')">
-				</p-multiSelect>
-			</div>
-		</div>
-	</ng-template>
-	<ng-template pTemplate="header">
-		<tr>
-			<th [pSortableColumn]="'campaign'"><label>Campaign</label>
-				<p-sortIcon [field]="'campaign'"></p-sortIcon>
-			</th>
-			<th [pSortableColumn]="'product'"><label>Product</label>
-				<p-sortIcon [field]="'product'"></p-sortIcon>
-			</th>
-			<th [pSortableColumn]="'language'"><label>Language</label>
-				<p-sortIcon [field]="'language'"></p-sortIcon>
-			</th>
-			<th [pSortableColumn]="'ip'"><label>Ip</label>
-				<p-sortIcon [field]="'ip'"></p-sortIcon>
-			</th>
-			<th [pSortableColumn]="'website'"><label>Website</label>
-				<p-sortIcon [field]="'website'"></p-sortIcon>
-			</th>
-			<th [pSortableColumn]="'trackingLink'"><label>Tracking Link</label>
-				<p-sortIcon [field]="'trackingLink'"></p-sortIcon>
-			</th>
-		</tr>
-		<tr>
-			<th>
-				<input pInputText type="text" (input)="table.filter($event.target.value, 'campaign', 'contains');" class="filtro">
-			</th>
-			<th>
-				<input pInputText type="text" (input)="table.filter($event.target.value, 'product', 'contains');" class="filtro">
-			</th>
-			<th>
-				<input pInputText type="text" (input)="table.filter($event.target.value, 'language', 'contains');" class="filtro">
-			</th>
-			<th>
-				<input pInputText type="text" (input)="table.filter($event.target.value, 'ip', 'contains');" class="filtro">
-			</th>
-			<th>
-				<input pInputText type="text" (input)="table.filter($event.target.value, 'website', 'contains');" class="filtro">
-			</th>
-			<th>
-				<input pInputText type="text" (input)="table.filter($event.target.value, 'trackingLink', 'contains');" class="filtro">
-			</th>
-		</tr>
-	</ng-template>
-	<ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-expanded="expanded" let-columns="columns">
-		<tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.casino].index === rowIndex">
-			<td colspan="6">
-				<a href="#" [pRowToggler]="rowData" class="expander-row">
-					<i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
-					<span>{{rowData.casino}}</span>
-				</a>
-			</td>
-		</tr>
-	</ng-template>
-	<ng-template pTemplate="rowexpansion" let-rowData let-rowIndex="rowIndex">
-		<tr>
-			<td>{{rowData.campaign}}</td>
-			<td>{{rowData.product}}</td>
-			<td>{{rowData.language}}</td>
-			<td>{{rowData.ip}}</td>
-			<td>{{rowData.website}}</td>
-			<td>{{rowData.trackingLink}}</td>
-		</tr>
-	</ng-template>
-</p-table>
-
-<hr>
-<h3 class="first">Tracking Links & Campaigns </h3>
-<p-treeTable #tt [value]="topNodes">
-  <ng-template pTemplate="caption">
-		<div card-title fxLayout="row" fxLayoutAlign="space-between center">
-			Brand
-			<div>
-				<p-multiSelect [options]="casinos" defaultLabel="Casino" appendTo="body"
-				>
-				</p-multiSelect>
-			</div>
-		</div>
-	</ng-template>
-	<ng-template pTemplate="header">
-		<tr>
-			<th rowspan="2">Setup</th>
-			<th colspan="2">Tracking links and campaign</th>
-		</tr>
-		<tr>
-
-			<th>Link</th>
-			<th>Campaign name</th>
-		</tr>
-	</ng-template>
-	<ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-		<tr>
-			<td>
-				<p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-				{{rowData.label}}
-			</td>
-
-			<td>{{rowData.trackingLink}}</td>
-			<td>{{rowData.campaign}}</td>
-		</tr>
-	</ng-template>
-</p-treeTable>
-<hr> -->
-
 <h3 class="first">Business type</h3>
 <p-selectButton [options]="types" [(ngModel)]="selectedType"></p-selectButton>
 <div>
 	<h3 class="first">Brand</h3>
 	<p-dropdown #brand [options]="casinos" filter="true" [(ngModel)]="selectedBrand">
-		<!-- <ng-template let-item pTemplate="selectedItem">
-        <img src="assets/showcase/images/demo/car/{{item.label}}.png" style="width:16px;vertical-align:middle" />
-        <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
-    </ng-template>
-    <ng-template let-car pTemplate="item">
-        <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
-            <img src="assets/showcase/images/demo/car/{{car.label}}.png" style="width:24px;position:absolute;top:1px;left:5px"/>
-            <div style="font-size:14px;float:right;margin-top:4px">{{car.label}}</div>
-        </div>
-    </ng-template> -->
+
 	</p-dropdown>
 </div>
 <hr>
 <h3>{{selectedBrand || 'none'}}</h3>
+<!-- <div> {{ selectedTrackings | json }}</div> -->
+
+
 <p-accordion [multiple]="true" expandIcon="fa fa-chevron-right" collapseIcon="fa fa-chevron-down">
-  
-	<p-accordionTab header="&nbsp;English">
-		Content 1
+
+	<p-accordionTab *ngFor="let item of selectedTrackings" header="&nbsp;&nbsp;{{item.data.language}}">
+		<div>
+			<div>
+				<p-table [value]="[item]">
+					<ng-template pTemplate="caption">Default - Catch all - Tracking link</ng-template>
+					<ng-template pTemplate="header">
+						<tr>
+							<th>Link</th>
+							<th>Campaign</th>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="body" let-link>
+						<tr>
+							<td>{{link.data.trackingLink}}</td>
+							<td>{{link.data.campaign}}</td>
+						</tr>
+					</ng-template>
+				</p-table>
+			</div>
+			<div>
+				<hr>
+				<p-table [value]="item.children">
+					<ng-template pTemplate="caption">Country specific trackings</ng-template>
+					<ng-template pTemplate="footer">
+							<tr>
+								<td colspan="5">
+									<button type="button" pButton icon="fa fa-plus" label="Add country specific tracking" (click)=" menu.toggle($event)"></button>
+								</td>
+							</tr>
+					</ng-template>
+					<ng-template pTemplate="header">
+						<tr>
+							<th>Country</th>
+							<th>Language</th>
+							<th>Website</th>
+							<th>Link</th>
+							<th>Campaign</th>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="body" let-link>
+						<tr>
+							<td>{{link.data.ip}}</td>
+							<td>{{link.data.language}}</td>
+							<td>{{link.data.website}}</td>
+							<td>{{link.data.trackingLink}}</td>
+							<td>{{link.data.campaign}}</td>
+						</tr>
+					</ng-template>
+				</p-table>
+			</div>
+
+		</div>
 	</p-accordionTab>
-	<p-accordionTab header="&nbsp;French">
-		Content 2
-	</p-accordionTab>
-	<p-accordionTab header="&nbsp;German">
-		Content 3
-	</p-accordionTab>
+
 </p-accordion>
 <hr>
+<p-fieldset legend="Header" [toggleable]="true">
+	Content
+</p-fieldset>
+<hr>
 <button type="button" pButton icon="fa fa-plus" label="Add tracking for the language" (click)=" menu.toggle($event)"></button>
-<p-menu #menu [model]="languages" ></p-menu>
+<p-menu #menu [model]="languages"></p-menu>

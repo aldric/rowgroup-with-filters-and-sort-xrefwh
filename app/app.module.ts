@@ -20,6 +20,7 @@ import { DropdownModule } from "primeng/dropdown";
 import { AccordionModule } from "primeng/accordion";
 import { MenuModule } from "primeng/menu";
 import {ButtonModule} from 'primeng/button';
+import {FieldsetModule} from 'primeng/fieldset';
 @NgModule({
   imports: [
     BrowserModule,
@@ -35,6 +36,7 @@ import {ButtonModule} from 'primeng/button';
     SelectButtonModule,
     ButtonModule,
     DropdownModule,
+    FieldsetModule,
     AccordionModule,
     MultiSelectModule
   ],

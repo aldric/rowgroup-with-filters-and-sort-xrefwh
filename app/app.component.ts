@@ -2,7 +2,7 @@ import { Component, ViewChild } from "@angular/core";
 import { Table } from "primeng/components/table/table";
 import { SortEvent } from "primeng/components/common/api";
 import { TreeNode, SelectItem } from "primeng/api";
-import {MenuItem} from 'primeng/api';
+import { MenuItem } from "primeng/api";
 
 @Component({
   selector: "my-app",
@@ -13,19 +13,12 @@ export class AppComponent {
   tl: any[];
   casinos: any[];
   topNodes: TreeNode[];
-  flatsCasinos: any[];
-  cols: any[];
 
   languages: MenuItem[];
   selectedType: any = "casino";
   selectedBrand: any = "casino.com";
 
-  expandedRows: number[];
-
-  rowGroupMetadata = {};
-
-  @ViewChild("table")
-  table: Table;
+  selectedTrackings: any;
 
   types: SelectItem[];
 
@@ -213,58 +206,9 @@ export class AppComponent {
           }));
       });
     });
-
     console.log(this.topNodes);
-
-    this.updateRowGroupMetaData(this.tl);
-  }
-  customSort(event: SortEvent) {
-    this.sort(event.data, "casino", event.order);
-    this.sort(event.data, event.field, event.order);
-    this.updateRowGroupMetaData(event.data);
-  }
-
-  onFilter(event) {
-    this.updateRowGroupMetaData(event.filteredValue);
-  }
-
-  updateRowGroupMetaData(data) {
-    this.rowGroupMetadata = {};
-    if (data) {
-      for (let i = 0; i < data.length; i++) {
-        let rowData = data[i];
-        let casino = rowData.casino;
-        if (i == 0) {
-          this.rowGroupMetadata[casino] = { index: 0, size: 1 };
-        } else {
-          let previousRowData = this.tl[i - 1];
-          let previousRowGroup = previousRowData.casino;
-          if (casino === previousRowGroup) this.rowGroupMetadata[casino].size++;
-          else this.rowGroupMetadata[casino] = { index: i, size: 1 };
-        }
-      }
-    }
-  }
-
-  sort(array, field, order) {
-    array.sort((data1, data2) => {
-      const value1 = data1[field];
-      const value2 = data2[field];
-      let result = null;
-
-      if (value1 == null && value2 != null) {
-        result = -1;
-      } else if (value1 != null && value2 == null) {
-        result = 1;
-      } else if (value1 == null && value2 == null) {
-        result = 0;
-      } else if (typeof value1 === "string" && typeof value2 === "string") {
-        result = value1.localeCompare(value2);
-      } else {
-        result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
-      }
-
-      return order * result;
-    });
+    let tls = this.topNodes.filter(n => n.label === this.selectedBrand);
+    console.log(tls);
+    this.selectedTrackings = tls;
   }
 }
